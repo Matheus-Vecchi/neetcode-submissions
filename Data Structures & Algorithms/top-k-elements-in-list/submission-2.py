@@ -1,0 +1,22 @@
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        hashmap = {}
+
+        for i in nums:
+            if i in hashmap:
+                hashmap[i] += 1
+            else:
+                hashmap[i] = 1
+        
+        bucket = [[] for _ in range(0, len(nums) + 1)]
+        ans = []
+
+        for key, value in hashmap.items():
+            bucket[value].append(key)
+
+        for j in range(len(bucket) - 1, 0, -1):
+            for num in bucket[j]:
+                ans.append(num)
+
+                if len(ans) == k:
+                    return ans
